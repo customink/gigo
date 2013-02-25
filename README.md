@@ -27,6 +27,11 @@ end
 ```
 
 
+## Toe Dough List
+
+Remvoe CharDet and look at something like [CharlockHolmes](https://github.com/brianmario/charlock_holmes). I had install problems with this and it also failed a few initial tire kicks. See [my notes](https://gist.github.com/metaskills/5029604) here on the topic.
+
+
 ## Contributing
 
 GIGO is fully tested with ActiveSupport 3.0 to 4 and upward. If you detect a problem, open up a github issue or fork the repo and help out. After you fork or clone the repository, the following commands will get you up and running on the test suite. 
