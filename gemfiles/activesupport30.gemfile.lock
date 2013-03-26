@@ -1,7 +1,7 @@
 PATH
-  remote: /Users/kencollins/Repositories/gigo
+  remote: /Users/kencollins/Repositories/customink/gigo
   specs:
-    gigo (1.0.0)
+    gigo (1.1.0)
       activesupport (>= 3.0)
       ensure_valid_encoding (~> 0.5.3)
 
@@ -13,9 +13,9 @@ GEM
       bundler
       rake
     ensure_valid_encoding (0.5.3)
-    minitest (4.6.1)
+    minitest (4.7.0)
     minitest-emoji (1.0.0)
-    rake (10.0.3)
+    rake (10.0.4)
 
 PLATFORMS
   ruby

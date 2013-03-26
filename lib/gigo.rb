@@ -1,3 +1,4 @@
+require 'active_support/multibyte'
 require 'active_support/core_ext/object/acts_like'
 require 'active_support/core_ext/string/behavior'
 require 'ensure_valid_encoding'
@@ -19,10 +20,14 @@ module GIGO
   def self.safe_detect_and_encoder(data)
     string = data
     begin
-      encoding = CharDet.detect(string.dup)['encoding'] || string.encoding || Encoding.default_internal || forced_encoding
-      string = string.force_encoding(encoding).encode forced_encoding, :undef => :replace, :invalid => :replace
+      string = ActiveSupport::Multibyte.proxy_class.new(string).tidy_bytes
     rescue Exception => e
-      string = string.encode forced_encoding, :undef => :replace, :invalid => :replace
+      begin
+        encoding = CharDet.detect(string.dup)['encoding'] || string.encoding || Encoding.default_internal || forced_encoding
+        string = string.force_encoding(encoding).encode forced_encoding, :undef => :replace, :invalid => :replace
+      rescue Exception => e
+        string = string.encode forced_encoding, :undef => :replace, :invalid => :replace
+      end
     end
     EnsureValidEncoding.ensure_valid_encoding string, invalid: :replace, replace: "?"
   end

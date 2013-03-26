@@ -10,6 +10,7 @@ module GIGO
     let(:data_utf8)         { "€20 – “Woohoo”" }
     let(:data_bad_readin)   { "�20 � �Woohoo�" }
     let(:data_cp1252)       { data_utf8.encode('CP1252') }
+    let(:data_bin_apos)     { "won\x92t".force_encoding('binary') }
     let(:data_really_bad)   { "ed.Ã\u0083Ã\u0083\xC3" }
 
 
@@ -22,6 +23,10 @@ module GIGO
         GIGO.load(o).must_equal o
       end
 
+      it 'fixes windows apostrophe' do
+        GIGO.load(data_bin_apos).must_equal "won’t"
+      end
+
       it 'should allows properly encoded and marked strings to be passed thru' do
         GIGO.load(data_utf8).must_equal data_utf8
         GIGO.load(data_utf8_emoji).must_equal data_utf8_emoji
@@ -32,7 +37,7 @@ module GIGO
       end
 
       it 'allows really bad data to be encoded using default replace and question marks' do
-        GIGO.load(data_utf8_emoji.force_encoding('ASCII-8BIT')).must_equal '����'
+        GIGO.load(data_utf8_emoji.force_encoding('ASCII-8BIT')).must_equal data_utf8_emoji
       end
 
       it 'converts windows codepages that are poorly marked as another encoding' do
