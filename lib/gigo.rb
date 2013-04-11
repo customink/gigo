@@ -29,7 +29,8 @@ module GIGO
         string = string.encode forced_encoding, :undef => :replace, :invalid => :replace
       end
     end
-    EnsureValidEncoding.ensure_valid_encoding string, invalid: :replace, replace: "?"
+    string = EnsureValidEncoding.ensure_valid_encoding string, invalid: :replace, replace: "?"
+    string.to_s
   end
 
   def self.forced_encoding

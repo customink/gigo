@@ -23,6 +23,10 @@ module GIGO
         GIGO.load(o).must_equal o
       end
 
+      it 'always returns a String object' do
+        GIGO.load(data_bin_apos).must_be_instance_of String
+      end
+
       it 'fixes windows apostrophe' do
         GIGO.load(data_bin_apos).must_equal "won’t"
       end
