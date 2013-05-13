@@ -7,28 +7,58 @@ require 'gigo/version'
 
 module GIGO
 
-  def self.load(data)
+  module Transcoders
+    class ActiveSupportMultibyteTranscoder
+      def self.transcode(data, encoding)
+        ActiveSupport::Multibyte.proxy_class.new(data).tidy_bytes
+      end
+    end
+
+    class CharDetTranscoder
+      def self.detect_encoding(data)
+        CharDet.detect(data.dup)['encoding']
+      end
+
+      def self.transcode(data, encoding)
+        source_encoding = detect_encoding(data) || data.encoding || Encoding.default_internal || Encoding::UTF_8
+        data.force_encoding(source_encoding).encode encoding, :undef => :replace, :invalid => :replace
+      end
+    end
+
+    class BlindTranscoder
+      def self.transcode(data, encoding)
+        data.encode encoding, :undef => :replace, :invalid => :replace
+      end
+    end
+  end
+
+  def self.load(data, transcoders = nil)
     return data if data.nil? || !data.acts_like?(:string)
-    encoded_string = safe_detect_and_encoder(data)
+    encoded_string = safe_detect_and_encoder(data, transcoders)
     return data if data.encoding == forced_encoding && data == encoded_string
     encoded_string
   end
 
+  def self.default_transcoders
+    @default_transcoders ||= [
+      Transcoders::ActiveSupportMultibyteTranscoder,
+      Transcoders::CharDetTranscoder,
+      Transcoders::BlindTranscoder
+    ]
+  end
 
   protected
 
-  def self.safe_detect_and_encoder(data)
+  def self.safe_detect_and_encoder(data, transcoders = nil)
+    transcoders = (transcoders || default_transcoders).dup
     string = data
+
     begin
-      string = ActiveSupport::Multibyte.proxy_class.new(string).tidy_bytes
+      string = transcoders.shift.transcode(string, forced_encoding)
     rescue Exception => e
-      begin
-        encoding = CharDet.detect(string.dup)['encoding'] || string.encoding || Encoding.default_internal || forced_encoding
-        string = string.force_encoding(encoding).encode forced_encoding, :undef => :replace, :invalid => :replace
-      rescue Exception => e
-        string = string.encode forced_encoding, :undef => :replace, :invalid => :replace
-      end
+      retry unless transcoders.empty?
     end
+
     string = EnsureValidEncoding.ensure_valid_encoding string, invalid: :replace, replace: "?"
     string.to_s
   end
@@ -36,5 +66,5 @@ module GIGO
   def self.forced_encoding
     Encoding.default_internal || Encoding::UTF_8
   end
-  
+
 end
