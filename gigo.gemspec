@@ -19,6 +19,6 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency     'ensure_valid_encoding', '~> 0.5.3'
   gem.add_development_dependency 'appraisal'
   gem.add_development_dependency 'rake'
-  gem.add_development_dependency 'minitest'
+  gem.add_development_dependency 'minitest', '~> 4.7.4'
   gem.add_development_dependency 'minitest-emoji'
 end
