@@ -59,7 +59,7 @@ module GIGO
         GIGO.load(data_medico_unknown).must_equal "Med�co"
       end
 
-      it 'makes sure UTF-8 data read in as US-ASCII us fixed' do
+      it 'makes sure UTF-8 data read in as US-ASCII is fixed' do
         GIGO.load(data_medico_utf8.force_encoding('US-ASCII')).must_equal 'Medíco'
       end
 
@@ -79,7 +79,7 @@ module GIGO
         GIGO.load(data_medico_iso88591.force_encoding('US-ASCII')).must_equal 'Medíco'
       end
 
-      it 'can make sure to it is really a valid encoding afterward' do
+      it 'readly bad data can be html escaped afterward' do
         html_escape GIGO.load(data_really_bad)
       end
 
