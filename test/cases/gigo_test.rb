@@ -90,7 +90,6 @@ module GIGO
       it 'is an array of default transcoders' do
         GIGO.transcoders.must_equal [
           GIGO::Transcoders::ActiveSupport,
-          GIGO::Transcoders::CharDet,
           GIGO::Transcoders::Blind
         ]
       end

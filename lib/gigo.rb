@@ -2,7 +2,6 @@ require 'active_support/all'
 require 'ensure_valid_encoding'
 require 'gigo/transcoders'
 require 'gigo/transcoders/active_support'
-require 'gigo/transcoders/rchardet'
 require 'gigo/transcoders/blind'
 require 'gigo/version'
 

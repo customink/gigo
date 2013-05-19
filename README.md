@@ -5,7 +5,7 @@ Or better yet, Garbage In, Gold Out! - The GIGO gem aims to fix ruby string enco
 
 The GIGO gem is not likely the proper solutions. If you have bad encodings in your database, you should fix them and write consistent encodings. That said, if you have no other choice, GIGO can help.
 
-This gem depends on a series of transcoders including `ActiveSupport::Multibyte#tidy_bytes` along with one of the many public forks of `CharDet` for ruby. Since `CharDet` is not a public gem and following proper semantic versioning, we have decided to vendor the [kirillrdy/rchardet](http://github.com/kirillrdy/rchardet) repo. We have even made sure that our vendored version stays in our namesacpe by using `GIGO::CharDet`. So if you have another version bundled, feel confident that the two will not conflict.
+This gem can utilize a series of transcoders but for now use the `ActiveSupport::Multibyte#tidy_bytes` to do most of the heavy lifting.
 
 
 ## Usage
@@ -13,7 +13,7 @@ This gem depends on a series of transcoders including `ActiveSupport::Multibyte#
 Simple, just pass a string to `GIGO.load`. Nil values or properly encoded strings are returned. Else, `GIGO` will do its best to convert and force your default internal (or UTF-8) encoding.
 
 ```ruby
-  GIGO.load "€20 – “Woohoo”"
+GIGO.load "€20 – “Woohoo”"
 ```
 
 Lets say you have a `comments` column on an ActiveRecord model which is not guaranteed to come back per your default external encoding.
@@ -32,15 +32,9 @@ GIGO's encoding can be configured using the `GIGO.encoding` accessor. By default
 GIGO transcoders can be any module or class that implements the `transcode` method. This method takes one argument, the string to transcode and can hook into the `GIGO.encoding` if needed. The default list of transcoders is.
 
 * GIGO::Transcoders::ActiveSupport
-* GIGO::Transcoders::CharDet
 * GIGO::Transcoders::Blind
 
 GIGO attempts to use each in that order. Upon successful transcoding, we use the [EnsureValidEncoding](http://github.com/jrochkind/ensure_valid_encoding) gem to force an encoding to match the `GIGO.encoding` while removing any non-convertable characters.
-
-
-## Toe Dough List
-
-Remvoe CharDet and look at something like [CharlockHolmes](https://github.com/brianmario/charlock_holmes). I had install problems with this and it also failed a few initial tire kicks. See [my notes](https://gist.github.com/metaskills/5029604) here on the topic.
 
 
 ## Contributing
