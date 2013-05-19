@@ -4,8 +4,6 @@ require 'test_helper'
 module GIGO
   class BaseTest < TestCase
 
-    include ERB::Util
-
     let(:data_utf8_emoji)   { "💖" }
     let(:data_utf8)         { "€20 – “Woohoo”" }
     let(:data_bad_readin)   { "�20 � �Woohoo�" }
@@ -13,6 +11,19 @@ module GIGO
     let(:data_bin_apos)     { "won\x92t".force_encoding('binary') }
     let(:data_really_bad)   { "ed.Ã\u0083Ã\u0083\xC3" }
 
+
+    describe '.encoding' do
+
+      it 'defaults to UTF-8 encoding' do
+        GIGO.encoding.must_equal Encoding::UTF_8
+      end
+
+      it 'can be set to any encoding' do
+        GIGO.encoding = Encoding::CP1252
+        GIGO.encoding.must_equal Encoding::CP1252
+      end
+
+    end
 
     describe '.load' do
       
@@ -61,7 +72,17 @@ module GIGO
 
     end
 
-    
+    describe '.transcoders' do
+
+      it 'is an array of default transcoders' do
+        GIGO.transcoders.must_equal [
+          GIGO::Transcoders::ActiveSupport,
+          GIGO::Transcoders::CharDet,
+          GIGO::Transcoders::Blind
+        ]
+      end
+
+    end
     
   end
 end

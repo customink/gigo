@@ -39,5 +39,6 @@ DEPENDENCIES
   activesupport!
   appraisal
   gigo!
+  i18n
   minitest (~> 5.0)
   rake

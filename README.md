@@ -5,9 +5,7 @@ Or better yet, Garbage In, Gold Out! - The GIGO gem aims to fix ruby string enco
 
 The GIGO gem is not likely the proper solutions. If you have bad encodings in your database, you should fix them and write consistent encodings. That said, if you have no other choice, GIGO can help.
 
-This gem depends on one of the many public forks of `CharDet` for ruby. Since `CharDet` is not a public gem and following proper semantic versioning, we have decided to vendor the [kirillrdy/rchardet](http://github.com/kirillrdy/rchardet) repo. We have even made sure that our vendored version stays in our namesacpe by using `GIGO::CharDet`. So if you have another version bundled, feel confident that the two will not conflict.
-
-We use `GIGO::CharDet` to do the grunt work of finding the proper encoding of an untrusted string. Once found, we use the [EnsureValidEncoding](http://github.com/jrochkind/ensure_valid_encoding) gem to either force an encoding while removing any non-convertable characters.
+This gem depends on a series of transcoders including `ActiveSupport::Multibyte#tidy_bytes` along with one of the many public forks of `CharDet` for ruby. Since `CharDet` is not a public gem and following proper semantic versioning, we have decided to vendor the [kirillrdy/rchardet](http://github.com/kirillrdy/rchardet) repo. We have even made sure that our vendored version stays in our namesacpe by using `GIGO::CharDet`. So if you have another version bundled, feel confident that the two will not conflict.
 
 
 ## Usage
@@ -25,6 +23,19 @@ def comments
   GIGO.load read_attribute(:comments)
 end
 ```
+
+GIGO's encoding can be configured using the `GIGO.encoding` accessor. By default this is either `Encoding.default_internal` with a fallback to `Encoding::UTF_8`.
+
+
+## Transcoders
+
+GIGO transcoders can be any module or class that implements the `transcode` method. This method takes one argument, the string to transcode and can hook into the `GIGO.encoding` if needed. The default list of transcoders is.
+
+* GIGO::Transcoders::ActiveSupport
+* GIGO::Transcoders::CharDet
+* GIGO::Transcoders::Blind
+
+GIGO attempts to use each in that order. Upon successful transcoding, we use the [EnsureValidEncoding](http://github.com/jrochkind/ensure_valid_encoding) gem to force an encoding to match the `GIGO.encoding` while removing any non-convertable characters.
 
 
 ## Toe Dough List
@@ -45,6 +56,6 @@ $ bundle exec rake appraisal test
 We use the [appraisal](https://github.com/thoughtbot/appraisal) gem from Thoughtbot to help us generate the individual gemfiles for each ActiveSupport version and to run the tests locally against each generated Gemfile. The `rake appraisal test` command actually runs our test suite against all Rails versions in our `Appraisal` file. If you want to run the tests for a specific Rails version, use `rake -T` for a list. For example, the following command will run the tests for Rails 3.2 only.
 
 ```shell
-$ bundle exec rake appraisal:rails32 test
+$ bundle exec rake appraisal:activesupport32 test
 ```
 
