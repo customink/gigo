@@ -11,6 +11,10 @@ module GIGO
     let(:data_bin_apos)     { "won\x92t".force_encoding('binary') }
     let(:data_really_bad)   { "ed.Ã\u0083Ã\u0083\xC3" }
 
+    let(:data_medico_utf8)     { "Med\u00EDco".force_encoding('UTF-8') }
+    let(:data_medico_iso88591) { "Med\xEDco".force_encoding('iso8859-1') }
+    let(:data_medico_unknown)  { "Med\uFFFDco".force_encoding('UTF-8') }
+
 
     describe '.encoding' do
 
@@ -42,7 +46,7 @@ module GIGO
         GIGO.load(data_bin_apos).must_equal "won’t"
       end
 
-      it 'should allows properly encoded and marked strings to be passed thru' do
+      it 'should allow properly encoded and marked strings to be passed thru' do
         GIGO.load(data_utf8).must_equal data_utf8
         GIGO.load(data_utf8_emoji).must_equal data_utf8_emoji
       end
@@ -52,7 +56,11 @@ module GIGO
       end
 
       it 'allows really bad data to be encoded using default replace and question marks' do
-        GIGO.load(data_utf8_emoji.force_encoding('ASCII-8BIT')).must_equal data_utf8_emoji
+        GIGO.load(data_medico_unknown).must_equal "Med�co"
+      end
+
+      it 'makes sure UTF-8 data read in as US-ASCII us fixed' do
+        GIGO.load(data_medico_utf8.force_encoding('US-ASCII')).must_equal 'Medíco'
       end
 
       it 'converts windows codepages that are poorly marked as another encoding' do
@@ -66,7 +74,12 @@ module GIGO
         GIGO.load(db_data4).must_equal data_utf8
       end
 
-      it 'can make sure to it is really a valid encoding afteward' do
+      it 'converts iso8859 when poorly marked as another encoding' do
+        GIGO.load(data_medico_iso88591).must_equal 'Medíco'
+        GIGO.load(data_medico_iso88591.force_encoding('US-ASCII')).must_equal 'Medíco'
+      end
+
+      it 'can make sure to it is really a valid encoding afterward' do
         html_escape GIGO.load(data_really_bad)
       end
 

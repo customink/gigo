@@ -14,7 +14,7 @@ module GIGO
       private
 
       def self.detect_encoding(data)
-        CharDet.detect(data.dup)['encoding']
+        GIGO::CharDet.detect(data.dup)['encoding']
       end
       
     end
