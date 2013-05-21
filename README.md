@@ -16,11 +16,11 @@ Simple, just pass a string to `GIGO.load`. Nil values or properly encoded string
 GIGO.load "€20 – “Woohoo”"
 ```
 
-Lets say you have a `comments` column on an ActiveRecord model which is not guaranteed to come back per your default external encoding.
+Lets say you have a `comments` column on an ActiveRecord model which is not guaranteed to come back per your default external encoding. However, take a look at the [gigo-activerecord](https://github.com/customink/gigo-activerecord) gem.
 
 ```ruby
 def comments
-  GIGO.load read_attribute(:comments)
+  GIGO.load(super)
 end
 ```
 
