@@ -21,6 +21,6 @@ module GIGO
     def teardown_gigo
       GIGO.encoding = @_default_gigo_encoding
     end
-    
+
   end
 end

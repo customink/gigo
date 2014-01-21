@@ -30,7 +30,7 @@ module GIGO
     end
 
     describe '.load' do
-      
+
       it 'ignores if string is not present' do
         GIGO.load('').must_equal ''
         GIGO.load(nil).must_be_nil
@@ -104,6 +104,6 @@ module GIGO
       end
 
     end
-    
+
   end
 end

@@ -7,7 +7,7 @@ module GIGO
       def self.transcode(data)
         ::ActiveSupport::Multibyte.proxy_class.new(data).tidy_bytes.to_s
       end
-      
+
     end
   end
 end
