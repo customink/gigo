@@ -12,6 +12,9 @@ appraise 'activesupport32' do
 end
 
 appraise 'activesupport40' do
-  gem 'activesupport', :github => 'rails/rails'
+  gem 'activesupport', '~> 4.0.0'
 end
 
+appraise 'activesupport41' do
+  gem 'activesupport', '~> 4.1.0'
+end

@@ -42,8 +42,6 @@ module GIGO
         data_cp1252 ; data_utf8
         Encoding.default_internal = Encoding::CP1252
         GIGO.encoding = Encoding::UTF_8
-        # raise data_utf8.inspect
-        # raise data_cp1252.inspect
         GIGO.load(data_cp1252).must_equal "€20 – “Woohoo”"
       end
 
