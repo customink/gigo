@@ -1,3 +1,6 @@
+appraise 'activesupport23' do
+  gem 'activesupport', '~> 2.3.17'
+end
 
 appraise 'activesupport30' do
   gem 'activesupport', '~> 3.0.0'
