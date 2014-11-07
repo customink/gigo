@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
-  gem.add_runtime_dependency     'activesupport', '>= 3.0'
+  gem.add_runtime_dependency     'activesupport', '>= 2.3'
   gem.add_runtime_dependency     'ensure_valid_encoding', '~> 0.5.3'
   gem.add_development_dependency 'appraisal'
   gem.add_development_dependency 'i18n' # Older ActiveSupport does not have a proper dep.
