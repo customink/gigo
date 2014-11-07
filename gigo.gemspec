@@ -17,6 +17,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.add_runtime_dependency     'activesupport', '>= 2.3'
   gem.add_runtime_dependency     'ensure_valid_encoding', '~> 0.5.3'
+  gem.add_runtime_dependency     'charlock_holmes', '~> 0.7'
   gem.add_development_dependency 'appraisal'
   gem.add_development_dependency 'i18n' # Older ActiveSupport does not have a proper dep.
   gem.add_development_dependency 'rake'

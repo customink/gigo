@@ -88,10 +88,11 @@ module GIGO
     describe '.transcoders' do
 
       it 'is an array of default transcoders' do
-        GIGO.transcoders.must_equal [
-          GIGO::Transcoders::ActiveSupport,
-          GIGO::Transcoders::Blind
-        ]
+        if ActiveSupport::VERSION::STRING < '3.0'
+          GIGO.transcoders.must_equal [GIGO::Transcoders::CharlockHolmes, GIGO::Transcoders::ActiveSupport, GIGO::Transcoders::Blind]
+        else
+          GIGO.transcoders.must_equal [GIGO::Transcoders::ActiveSupport, GIGO::Transcoders::Blind]
+        end
       end
 
     end

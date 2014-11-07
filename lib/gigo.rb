@@ -1,6 +1,8 @@
 require 'active_support/all'
+require 'active_support/version'
 require 'ensure_valid_encoding'
 require 'gigo/transcoders'
+require 'gigo/transcoders/charlock_holmes' if ActiveSupport::VERSION::STRING < '3.0'
 require 'gigo/transcoders/active_support'
 require 'gigo/transcoders/blind'
 require 'gigo/version'

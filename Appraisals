@@ -1,5 +1,6 @@
 appraise 'activesupport23' do
-  gem 'activesupport', '~> 2.3.17'
+  gem 'activesupport', '~> 2.3.0'
+  gem 'iconv'
 end
 
 appraise 'activesupport30' do

@@ -3,6 +3,7 @@ PATH
   specs:
     gigo (2.0.0)
       activesupport (>= 2.3)
+      charlock_holmes (~> 0.7)
       ensure_valid_encoding (~> 0.5.3)
 
 GEM
@@ -14,6 +15,7 @@ GEM
       bundler
       rake
       thor (>= 0.14.0)
+    charlock_holmes (0.7.3)
     ensure_valid_encoding (0.5.3)
     i18n (0.6.11)
     minitest (5.4.2)

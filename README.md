@@ -36,10 +36,18 @@ GIGO transcoders can be any module or class that implements the `transcode` meth
 
 GIGO attempts to use each in that order. Upon successful transcoding, we use the [EnsureValidEncoding](http://github.com/jrochkind/ensure_valid_encoding) gem to force an encoding to match the `GIGO.encoding` while removing any non-convertable characters.
 
+#### Rails/ActiveSupport v2.3.x
+
+When using GIGO with Rails/ActiveSupport 2.3., the `GIGO::Transcoders::CharlockHolmes` transcoder will be inserted before the `GIGO::Transcoders::ActiveSupport` one. This is needed because ActiveSupport's multibyte char support is weak in version 2.3.x. You will need to add this to your applications `Gemfile` since `CharlockHolmes` requires it.
+
+```ruby
+gem 'iconv'
+```
+
 
 ## Contributing
 
-GIGO is fully tested with ActiveSupport 3.0 to 4 and upward. If you detect a problem, open up a github issue or fork the repo and help out. After you fork or clone the repository, the following commands will get you up and running on the test suite. 
+GIGO is fully tested with ActiveSupport 3.0 to 4 and upward. If you detect a problem, open up a github issue or fork the repo and help out. After you fork or clone the repository, the following commands will get you up and running on the test suite.
 
 ```shell
 $ bundle install
