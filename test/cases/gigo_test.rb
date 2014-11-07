@@ -38,13 +38,6 @@ module GIGO
         GIGO.load(o).must_equal o
       end
 
-      it 'always honors GIGO.encoding even if default internal is different' do
-        data_cp1252 ; data_utf8
-        Encoding.default_internal = Encoding::CP1252
-        GIGO.encoding = Encoding::UTF_8
-        GIGO.load(data_cp1252).must_equal "€20 – “Woohoo”"
-      end
-
       it 'always returns a String object' do
         GIGO.load(data_bin_apos).must_be_instance_of String
       end

@@ -8,7 +8,6 @@ require 'gigo/version'
 module GIGO
 
   mattr_accessor :encoding
-  self.encoding = Encoding.default_internal || Encoding::UTF_8
 
   def self.load(data, options = {})
     return data if data.nil? || !data.acts_like?(:string)
@@ -17,6 +16,11 @@ module GIGO
     return data if data.encoding == GIGO.encoding && data == encoded_string
     encoded_string
   end
+
+  def self.reset_encoding!
+    self.encoding = Encoding.default_internal || Encoding::UTF_8
+  end
+  reset_encoding!
 
 
   protected

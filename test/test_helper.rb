@@ -7,20 +7,18 @@ module GIGO
   class TestCase < MiniTest::Spec
 
     include ERB::Util
+    @@default_internal_encoding = Encoding.default_internal
 
-    before { setup_gigo }
-    after  { teardown_gigo }
+    before { reset_encodings }
 
 
     private
 
-    def setup_gigo
-      @_default_gigo_encoding = GIGO.encoding
+    def reset_encodings
+      Encoding.default_internal = @@default_internal_encoding
+      GIGO.reset_encoding!
     end
 
-    def teardown_gigo
-      GIGO.encoding = @_default_gigo_encoding
-    end
 
   end
 end
