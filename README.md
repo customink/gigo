@@ -38,7 +38,7 @@ GIGO attempts to use each in that order. Upon successful transcoding, we use the
 
 #### Rails/ActiveSupport v2.3.x
 
-When using GIGO with Rails/ActiveSupport 2.3., the `GIGO::Transcoders::CharlockHolmes` transcoder will be inserted before the `GIGO::Transcoders::ActiveSupport` one. This is needed because ActiveSupport's multibyte char support is weak in version 2.3.x. You will need to add this to your applications `Gemfile` since both `CharlockHolmes` and `Icon` are your responsibility to bundle it.
+When using GIGO with Rails/ActiveSupport 2.3., the `GIGO::Transcoders::CharlockHolmes` transcoder will be inserted before the `GIGO::Transcoders::ActiveSupport` one. This is needed because ActiveSupport's multibyte char support is weak in version 2.3.x. You will need to add this to your applications `Gemfile` since both `CharlockHolmes` and `Iconv` are your responsibility to bundle it.
 
 ```ruby
 gem 'iconv'
