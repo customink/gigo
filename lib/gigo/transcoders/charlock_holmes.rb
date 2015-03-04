@@ -1,5 +1,8 @@
-require 'iconv'
-require 'charlock_holmes'
+begin
+  require 'iconv'
+  require 'charlock_holmes'
+rescue LoadError
+end
 
 module GIGO
   module Transcoders

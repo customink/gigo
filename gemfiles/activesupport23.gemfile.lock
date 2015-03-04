@@ -1,9 +1,8 @@
 PATH
   remote: ../
   specs:
-    gigo (2.0.0)
+    gigo (2.2.0)
       activesupport (>= 2.3)
-      charlock_holmes (~> 0.7)
       ensure_valid_encoding (~> 0.5.3)
 
 GEM
@@ -16,10 +15,10 @@ GEM
       thor (>= 0.14.0)
     charlock_holmes (0.7.3)
     ensure_valid_encoding (0.5.3)
-    i18n (0.6.11)
+    i18n (0.7.0)
     iconv (1.0.4)
-    minitest (5.4.2)
-    rake (10.3.2)
+    minitest (5.5.1)
+    rake (10.4.2)
     thor (0.19.1)
 
 PLATFORMS
@@ -28,6 +27,7 @@ PLATFORMS
 DEPENDENCIES
   activesupport (~> 2.3.0)
   appraisal
+  charlock_holmes (~> 0.7)
   gigo!
   i18n
   iconv
