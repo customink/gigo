@@ -1,6 +1,8 @@
 
 # GIGO (Garbage In, Garbage Out)
 
+[![Overall](https://img.shields.io/endpoint?style=flat&url=https://app.opslevel.com/api/service_level/-115U8UnEdReyzrRbvMqgVl8L-NTW-LS4OdbzwmLzxI)](https://app.opslevel.com/services/gigo/maturity-report)
+
 Or better yet, Garbage In, Gold Out! - The GIGO gem aims to fix ruby string encodings at all costs!
 
 The GIGO gem is not likely the proper solutions. If you have bad encodings in your database, you should fix them and write consistent encodings. That said, if you have no other choice, GIGO can help.
@@ -61,4 +63,3 @@ We use the [appraisal](https://github.com/thoughtbot/appraisal) gem from Thought
 ```shell
 $ bundle exec rake appraisal:activesupport32 test
 ```
-
