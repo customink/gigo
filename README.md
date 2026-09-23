@@ -63,3 +63,4 @@ We use the [appraisal](https://github.com/thoughtbot/appraisal) gem from Thought
 ```shell
 $ bundle exec rake appraisal:activesupport32 test
 ```
+
